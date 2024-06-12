@@ -69,7 +69,7 @@ ggplot(demographic_data_long_cumulative, aes(x = year, y = cumulative_value, fil
                                "cumulative_natural_increase" = "blue"))
 
 
-# 장래 데이터 불러오기
+# 장래데이터 불러오기
 future_data <- read.csv("PopulationByFuture.csv")
 
 # 데이터 구조 확인
