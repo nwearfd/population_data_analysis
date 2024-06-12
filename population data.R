@@ -99,3 +99,23 @@ ggplot(combined_data, aes(x = year, y = population)) +
   ylab("인구수") +
   theme_minimal()
 
+# 누적 출생, 사망, 이민 수 계산
+demographic_data <- demographic_data %>%
+  mutate(cumulative_births = cumsum(population * birth_rate / 1000),
+         cumulative_deaths = cumsum(population * death_rate / 1000),
+         cumulative_migration = cumsum(population * migration_rate / 1000))
+
+# 누적 출생, 사망, 이민 수 시각화
+demographic_data_long_cumulative <- demographic_data %>%
+  pivot_longer(cols = c(cumulative_births, cumulative_deaths, cumulative_migration), 
+               names_to = "cumulative_type", values_to = "cumulative_value")
+
+ggplot(demographic_data_long_cumulative, aes(x = year, y = cumulative_value, fill = cumulative_type)) +
+  geom_bar(stat = "identity") +
+  ggtitle("연도별 누적 출생, 사망, 이민 수 변화") +
+  xlab("연도") +
+  ylab("누적 수 (명)") +
+  theme_minimal() +
+  scale_fill_manual(values = c("cumulative_births" = "green", 
+                               "cumulative_deaths" = "red", 
+                               "cumulative_migration" = "purple"))
