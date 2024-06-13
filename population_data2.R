@@ -1,5 +1,6 @@
 # 필요한 라이브러리 로드
 library(tidyverse)
+library(lubridate)
 
 # 데이터 불러오기
 demographic_data <- read.csv("PopulationByYear.csv")
